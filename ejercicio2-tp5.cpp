@@ -74,7 +74,40 @@ pnodo eliminar_inicio(tlista &lista) {
 	return borrado;
 }
 
+pnodo eliminar_final(tlista &lista) {
+	pnodo borrado = NULL, i;
+	if (!es_vacia(lista)) {
+		if (lista.inicio == lista.final) {
+			borrado = lista.inicio;
+			lista.inicio = NULL;
+			lista.final = NULL;
+		} else {
+			for (i = lista.inicio; i->siguiente != lista.final; i = i->siguiente);
+			borrado = lista.final;
+			lista.final = i;
+			lista.final->siguiente = NULL;
+		}
+		lista.cantidad--;
+	}
+	return borrado;
+}
 
+int obtener_cantidad(tlista lista) {
+	return lista.cantidad;
+}
+
+void mostrar_lista(tlista lista) {
+	pnodo i;
+	if (!es_vacia(lista)) {
+		cout << "Elementos de la lista: ";
+		for (i = lista.inicio; i != NULL; i = i->siguiente) {
+			cout << i->dato << " ";
+		}
+		cout << endl;
+	} else {
+		cout << "Lista vacía" << endl;
+	}
+}
 int main() {
 	tlista lista;
 	iniciar_lista(lista);
