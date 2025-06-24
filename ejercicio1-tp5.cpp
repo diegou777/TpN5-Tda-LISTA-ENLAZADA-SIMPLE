@@ -116,7 +116,7 @@ void mostrar_lista(pnodo lista) {
 			cout << "Nodo: " << i->dato << endl;
 		}
 	} else {
-		cout << "Lista vacía" << endl;
+		cout << "Lista vacÃ­a" << endl;
 	}
 }
 
@@ -131,7 +131,32 @@ bool buscar_nodo(pnodo lista, int valor) {
 	return encontrado;
 }
 
-
+pnodo minimo(pnodo &lista) {
+	if (lista == NULL) return NULL;
+	
+	pnodo minNodo = lista;
+	pnodo antMin = NULL;
+	pnodo i = lista;
+	pnodo anterior = NULL;
+	
+	while (i != NULL) {
+		if (i->dato < minNodo->dato) {
+			minNodo = i;
+			antMin = anterior;
+		}
+		anterior = i;
+		i = i->siguiente;
+	}
+	
+	if (antMin == NULL) {
+		lista = minNodo->siguiente;
+	} else {
+		antMin->siguiente = minNodo->siguiente;
+	}
+	
+	minNodo->siguiente = NULL;
+	return minNodo;
+}
 
 int main() {
 	pnodo lista;
@@ -149,7 +174,7 @@ int main() {
 	
 	pnodo menor = minimo(lista);
 	if (menor != NULL) {
-		cout << "\nNodo mínimo extraído: " << menor->dato << endl;
+		cout << "\nNodo mÃ­nimo extraÃ­do: " << menor->dato << endl;
 		delete menor;
 	}
 	cout << "\nLista actualizada:" << endl;
