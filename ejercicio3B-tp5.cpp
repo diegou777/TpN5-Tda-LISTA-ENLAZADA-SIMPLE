@@ -44,7 +44,7 @@ void mostrar_lista(tlista lista) {
 		}
 		cout << endl;
 	} else {
-		cout << "Lista vacía" << endl;
+		cout << "Lista vacÃ­a" << endl;
 	}
 }
 
@@ -52,7 +52,21 @@ int obtener_cantidad(tlista lista) {
 	return lista.cantidad;
 }
 
-
+pnodo buscar_por_indice(tlista lista, int indice) {
+	if (indice < 0 || indice >= lista.cantidad) {
+		return NULL; 
+	}
+	
+	pnodo actual = lista.inicio;
+	int contador = 0;
+	
+	while (actual != NULL && contador < indice) {
+		actual = actual->siguiente;
+		contador++;
+	}
+	
+	return actual; 
+}
 
 int main() {
 	tlista lista;
@@ -70,13 +84,13 @@ int main() {
 	cout << "Cantidad de elementos: " << obtener_cantidad(lista) << endl;
 	
 	int indice;
-	cout << "\nIngrese el índice que desea buscar: ";
+	cout << "\nIngrese el Ã­ndice que desea buscar: ";
 	cin >> indice;
 	
 	pnodo encontrado = buscar_por_indice(lista, indice);
 	
 	if (encontrado != NULL) {
-		cout << "Elemento en la posición " << indice << " es: " << encontrado->dato << endl;
+		cout << "Elemento en la posiciÃ³n " << indice << " es: " << encontrado->dato << endl;
 	} else {
 		cout << "indice fuera de rango." << endl;
 	}
