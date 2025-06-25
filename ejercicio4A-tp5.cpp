@@ -29,7 +29,7 @@ void push_pila(Pila &p, int valor) {
 
 int pop_pila(Pila &p) {
 	if (pila_vacia(p)) {
-		cout << "Pila vacía. No se puede desapilar." << endl;
+		cout << "Pila vacÃ­a. No se puede desapilar." << endl;
 		return -999;
 	}
 	
@@ -49,6 +49,23 @@ void mostrar_pila(Pila p) {
 	cout << "NULL" << endl;
 }
 
+int main() {
+    Pila pila;
+    iniciar_pila(pila);
+    push_pila(pila, 5);
+    push_pila(pila, 15);
+    push_pila(pila, 25);
 
+    cout << "Contenido de la pila:\n";
+    mostrar_pila(pila); 
+
+    int valor = pop_pila(pila);
+    cout << "Desapilando: " << valor << endl;
+
+    cout << "Contenido de la pila luego de desapilar:\n";
+    mostrar_pila(pila); 
+
+    return 0;
+}
 
 
