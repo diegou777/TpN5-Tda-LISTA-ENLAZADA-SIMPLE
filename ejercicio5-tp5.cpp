@@ -7,8 +7,8 @@ typedef struct tnodo {
 	int dato;
 	pnodo siguiente;
 };
-//5b Ordenación por selección
-// Inicializa una lista vacía
+//5b OrdenaciÃ³n por selecciÃ³n
+// Inicializa una lista vacÃ­a
 void iniciar_lista(pnodo &lista) {
 	lista = NULL;
 }
@@ -54,7 +54,7 @@ void ordenar_seleccion(pnodo &lista) {
 	}
 }
 //5c. Combinar dos listas
-//i Método sin importar el orden
+//i MÃ©todo sin importar el orden
 pnodo combinar_sin_orden(pnodo l1, pnodo l2) {
 	pnodo nueva = NULL;
 	while (l1 != NULL) {
@@ -67,7 +67,7 @@ pnodo combinar_sin_orden(pnodo l1, pnodo l2) {
 	}
 	return nueva;
 }
-//ii Método respetando el orden ascendente
+//ii MÃ©todo respetando el orden ascendente
 pnodo combinar_con_orden(pnodo l1, pnodo l2) {
 	pnodo resultado = NULL;
 	
@@ -92,4 +92,36 @@ pnodo combinar_con_orden(pnodo l1, pnodo l2) {
 	
 	return resultado;
 }
-
+int main() {
+	pnodo lista1 = NULL, lista2 = NULL;
+	
+	iniciar_lista(lista1);
+	iniciar_lista(lista2);
+	
+	agregar_final(lista1, 3);
+	agregar_final(lista1, 9);
+	agregar_final(lista1, 1);
+	
+	agregar_final(lista2, 4);
+	agregar_final(lista2, 2);
+	agregar_final(lista2, 7);
+	
+	cout << "Lista 1 original:\n"; mostrar_lista(lista1);
+	cout << "Lista 2 original:\n"; mostrar_lista(lista2);
+	
+	ordenar_seleccion(lista1);
+	ordenar_seleccion(lista2);
+	
+	cout << "Lista 1 ordenada:\n"; mostrar_lista(lista1);
+	cout << "Lista 2 ordenada:\n"; mostrar_lista(lista2);
+	
+	pnodo combinada1 = combinar_sin_orden(lista1, lista2);
+	cout << "Listas combinadas sin importar orden:\n";
+	mostrar_lista(combinada1);
+	
+	pnodo combinada2 = combinar_con_orden(lista1, lista2);
+	cout << "Listas combinadas con orden:\n";
+	mostrar_lista(combinada2);
+	
+	return 0;
+}
