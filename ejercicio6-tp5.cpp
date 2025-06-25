@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-//6: Lista genérica con templates
+//6: Lista genÃ©rica con templates
 template <typename T>
 struct Nodo {
 	T dato;
@@ -46,7 +46,7 @@ public:
 		return inicio;
 	}
 };
-//6a. Contar números primos en una lista de enteros
+//6a. Contar nÃºmeros primos en una lista de enteros
 bool esPrimo(int n) {
 	if (n <= 1) return false;
 	for (int i = 2; i * i <= n; i++) {
@@ -67,7 +67,7 @@ int contarPrimos(Lista<int>& lista) {
 	
 	return contador;
 }
-//6b. Contar mayúsculas y minúsculas en lista de caracteres
+//6b. Contar mayÃºsculas y minÃºsculas en lista de caracteres
 void contarMayusMinus(Lista<char>& lista, int &mayus, int &minus) {
 	mayus = 0;
 	minus = 0;
@@ -80,4 +80,37 @@ void contarMayusMinus(Lista<char>& lista, int &mayus, int &minus) {
 			minus++;
 		aux = aux->siguiente;
 	}
+}
+int main() {
+    // 6a - Lista de enteros
+    Lista<int> listaEnteros;
+    listaEnteros.agregarFinal(2);
+    listaEnteros.agregarFinal(4);
+    listaEnteros.agregarFinal(5);
+    listaEnteros.agregarFinal(8);
+    listaEnteros.agregarFinal(11);
+
+    cout << "Lista de enteros:\n";
+    listaEnteros.mostrar();
+
+    int primos = contarPrimos(listaEnteros);
+    cout << "Cantidad de nÃºmeros primos en la lista: " << primos << endl << endl;
+
+    // 6b - Lista de caracteres
+    Lista<char> listaChars;
+    listaChars.agregarFinal('A');
+    listaChars.agregarFinal('b');
+    listaChars.agregarFinal('C');
+    listaChars.agregarFinal('d');
+    listaChars.agregarFinal('e');
+
+    cout << "Lista de caracteres:\n";
+    listaChars.mostrar();
+
+    int mayus = 0, minus = 0;
+    contarMayusMinus(listaChars, mayus, minus);
+    cout << "MayÃºsculas: " << mayus << endl;
+    cout << "MinÃºsculas: " << minus << endl;
+
+    return 0;
 }
