@@ -42,7 +42,7 @@ void encolar(Cola &c, int valor) {
 
 int desencolar(Cola &c) {
 	if (es_cola_vacia(c)) {
-		cout << "Cola vacía. No se puede desencolar." << endl;
+		cout << "Cola vacÃ­a. No se puede desencolar." << endl;
 		return -999;
 	}
 	
@@ -61,7 +61,7 @@ int desencolar(Cola &c) {
 
 int obtener_frente(Cola c) {
 	if (es_cola_vacia(c)) {
-		cout << "Cola vacía. No hay frente." << endl;
+		cout << "Cola vacÃ­a. No hay frente." << endl;
 		return -999;
 	}
 	return c.frente->dato;
@@ -80,4 +80,26 @@ void mostrar_cola(Cola c) {
 	cout << "NULL" << endl;
 }
 
-
+int main() {
+	Cola cola;
+	iniciar_cola(cola);
+	
+	encolar(cola, 100);
+	encolar(cola, 200);
+	encolar(cola, 300);
+	
+	cout << "Contenido de la cola:\n";
+	mostrar_cola(cola); 
+	
+	cout << "Cantidad de elementos: " << cantidad_elementos(cola) << endl;
+	
+	int valor = desencolar(cola);
+	cout << "Desencolando: " << valor << endl;
+	
+	cout << "Contenido de la cola luego de desencolar:\n";
+	mostrar_cola(cola); 
+	
+	cout << "Cantidad actual: " << cantidad_elementos(cola) << endl;
+	
+	return 0;
+}
