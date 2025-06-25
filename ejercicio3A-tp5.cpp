@@ -104,11 +104,24 @@ void mostrar_lista(tlista lista) {
 		}
 		cout << endl;
 	} else {
-		cout << "Lista vacía" << endl;
+		cout << "Lista vacÃ­a" << endl;
 	}
 }
 
-
+int buscar_indice(tlista lista, int valor) {
+	pnodo i = lista.inicio;
+	int posicion = 0;
+	
+	while (i != NULL) {
+		if (i->dato == valor) {
+			return posicion;
+		}
+		i = i->siguiente;
+		posicion++;
+	}
+	
+	return -1;
+}
 
 int main() {
 	tlista lista;
@@ -131,7 +144,7 @@ int main() {
 	int posicion = buscar_indice(lista, buscado);
 	
 	if (posicion != -1)
-		cout << "El valor " << buscado << " se encuentra en la posición lógica " << posicion << "." << endl;
+		cout << "El valor " << buscado << " se encuentra en la posiciÃ³n lÃ³gica " << posicion << "." << endl;
 	else
 		cout << "El valor " << buscado << " no se encuentra en la lista." << endl;
 	
