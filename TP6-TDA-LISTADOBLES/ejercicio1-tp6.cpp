@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 typedef struct tnodo* pnodo;
 typedef struct tnodo {
 	int dato;
@@ -21,6 +20,7 @@ void crearNodo(pnodo &nuevo) {
 	nuevo->sig = NULL;
 	nuevo->ant = NULL;
 }
+
 void agregarInicio(pnodo &inicio, pnodo nuevo) {
 	if (inicio == NULL)
 		inicio = nuevo;
@@ -55,14 +55,57 @@ void agregarOrdenado(pnodo &inicio, pnodo nuevo) {
 	}
 }
 
-void mostrarLista(pnodo inicio) {
-	if (inicio == NULL) {
-		cout << "Lista vacia" << endl;
-		return;
+pnodo quitarInicio(pnodo &inicio) {
+	pnodo extraido = NULL;
+	if (inicio != NULL) {
+		extraido = inicio;
+		inicio = inicio->sig;
+		if (inicio != NULL)
+			inicio->ant = NULL;
+		extraido->sig = NULL;
 	}
-	for (pnodo i = inicio; i != NULL; i = i->sig)
-		cout << i->dato << " <-> ";
-	cout << "NULL" << endl;
+	return extraido;
+}
+
+pnodo quitarFinal(pnodo &inicio) {
+	if (inicio == NULL) return NULL;
+	
+	pnodo i = inicio;
+	while (i->sig != NULL) i = i->sig;
+	
+	if (i->ant != NULL)
+		i->ant->sig = NULL;
+	else
+		inicio = NULL;
+	
+	i->ant = NULL;
+	return i;
+}
+
+pnodo quitarNodo(pnodo &inicio, int valor) {
+	if (inicio == NULL) return NULL;
+	
+	pnodo i = inicio;
+	
+	if (i->dato == valor) {
+		return quitarInicio(inicio);
+	}
+	
+	while (i != NULL && i->dato != valor) {
+		i = i->sig;
+	}
+	
+	if (i != NULL) {
+		if (i->ant != NULL)
+			i->ant->sig = i->sig;
+		if (i->sig != NULL)
+			i->sig->ant = i->ant;
+		
+		i->sig = NULL;
+		i->ant = NULL;
+	}
+	
+	return i;
 }
 
 bool buscar(pnodo inicio, int valor) {
@@ -74,13 +117,25 @@ bool buscar(pnodo inicio, int valor) {
 	return false;
 }
 
+void mostrarLista(pnodo inicio) {
+	if (inicio == NULL) {
+		cout << "Lista vacia" << endl;
+		return;
+	}
+	for (pnodo i = inicio; i != NULL; i = i->sig)
+		cout << i->dato << " <-> ";
+	cout << "NULL" << endl;
+}
+
 int main() {
-	pnodo lista, nuevo;
+	pnodo lista, nuevo, eliminado;
 	iniciarLista(lista);
 	int opcion, valor;
 	
 	do {
-		cout << "\n1. Agregar al inicio\n2. Agregar al final\n3. Agregar ordenado\n4. Mostrar lista\n5. Buscar valor\n6. Salir\nOpcion: ";
+		cout << "\n1. Agregar al inicio\n2. Agregar al final\n3. Agregar ordenado";
+		cout << "\n4. Quitar del inicio\n5. Quitar del final\n6. Quitar nodo por valor";
+		cout << "\n7. Buscar valor\n8. Mostrar lista\n9. Salir\nOpcion: ";
 		cin >> opcion;
 		
 		switch(opcion) {
@@ -97,23 +152,48 @@ int main() {
 			agregarOrdenado(lista, nuevo);
 			break;
 		case 4:
-			mostrarLista(lista);
+			eliminado = quitarInicio(lista);
+			if (eliminado != NULL) {
+				cout << "Eliminado: " << eliminado->dato << endl;
+				delete eliminado;
+			} else cout << "Lista vacia" << endl;
 			break;
 		case 5:
-			cout << "Ingrese valor a buscar: ";
-			cin >> valor;
-			if (buscar(lista, valor))
-				cout << "Valor encontrado.\n";
-			else
-				cout << "Valor no encontrado.\n";
+			eliminado = quitarFinal(lista);
+			if (eliminado != NULL) {
+				cout << "Eliminado: " << eliminado->dato << endl;
+				delete eliminado;
+			} else cout << "Lista vacia" << endl;
 			break;
 		case 6:
+			cout << "Valor a eliminar: ";
+			cin >> valor;
+			eliminado = quitarNodo(lista, valor);
+			if (eliminado != NULL) {
+				cout << "Eliminado: " << eliminado->dato << endl;
+				delete eliminado;
+			} else cout << "No encontrado" << endl;
+			break;
+		case 7:
+			cout << "Valor a buscar: ";
+			cin >> valor;
+			if (buscar(lista, valor)) {
+				cout << "Encontrado" << endl;
+			} else {
+				cout << "No encontrado" << endl;
+			}
+			break;
+			
+		case 8:
+			mostrarLista(lista);
+			break;
+		case 9:
 			cout << "Saliendo..." << endl;
 			break;
 		default:
-			cout << "Opcion invalida.\n";
+			cout << "Opcion invalida." << endl;
 		}
-		
-	} while (opcion != 6);
+	} while (opcion != 9);
 	
+	return 0;
 }
